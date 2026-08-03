@@ -1,2 +1,959 @@
-# makhlouf-.h-tony
-makhlou.h tony
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MAKHLOUF.H | makhlouf.h tony For Wheels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="icon" href="https://z-cdn-media.chatglm.cn/files/942f5bfa-a223-4ec1-a76b-9cb62b6da18f.png?auth_key=1885764815-f81bafb47cf74ec6bdda630f21c22232-0-516ed7ea2a610aa565a6089e9bcbf4e7">
+<style>
+  :root{
+    --bg:#050505;
+    --bg-2:#0d0d0f;
+    --panel:#121215;
+    --panel-2:#1a1a1f;
+    --gold:#d4af37;
+    --gold-2:#f4d27a;
+    --red:#e63946;
+    --green:#2ecc71;
+    --text:#f5f5f5;
+    --muted:#9a9a9a;
+    --line:rgba(212,175,55,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Cairo','Rajdhani',sans-serif;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(212,175,55,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, rgba(230,57,70,.07), transparent 60%),
+      linear-gradient(180deg,#060606 0%, #0a0a0c 100%);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  [dir="ltr"] body{font-family:'Rajdhani','Cairo',sans-serif}
+  /* Top bar */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(8,8,10,.78);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:1280px;margin:0 auto;padding:14px 22px;
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+  }
+  .logo-wrap{display:flex;align-items:center;gap:12px;cursor:pointer}
+  .logo-img{
+    width:54px;height:54px;border-radius:12px;object-fit:cover;
+    border:1px solid var(--gold);
+    box-shadow:0 0 22px rgba(212,175,55,.35);
+    background:#000;
+  }
+  .logo-text{display:flex;flex-direction:column;line-height:1.05}
+  .logo-text .big{
+    font-family:'Orbitron',sans-serif;font-weight:900;font-size:18px;letter-spacing:2px;
+    background:linear-gradient(90deg,#fff,var(--gold-2),var(--gold));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .logo-text .small{font-size:11px;color:var(--muted);letter-spacing:2px}
+  .nav-actions{display:flex;align-items:center;gap:10px}
+  .lang-btn,.icon-btn{
+    background:transparent;border:1px solid var(--line);color:var(--text);
+    padding:9px 14px;border-radius:10px;cursor:pointer;font-weight:700;
+    display:inline-flex;align-items:center;gap:8px;font-size:13px;
+    transition:.25s;
+  }
+  .lang-btn:hover,.icon-btn:hover{border-color:var(--gold);color:var(--gold);box-shadow:0 0 14px rgba(212,175,55,.25)}
+  .btn-gold{
+    background:linear-gradient(135deg,var(--gold),#b8941f);
+    color:#1a1407;border:none;padding:10px 18px;border-radius:10px;font-weight:800;
+    cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.25s;font-size:13px;
+  }
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(212,175,55,.45)}
+  .menu-toggle{display:none}
+
+  /* Hero */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;
+    padding:120px 22px 60px;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:url('https://z-cdn-media.chatglm.cn/files/942f5bfa-a223-4ec1-a76b-9cb62b6da18f.png?auth_key=1885764815-f81bafb47cf74ec6bdda630f21c22232-0-516ed7ea2a610aa565a6089e9bcbf4e7') center/cover no-repeat;
+    opacity:.28;filter:grayscale(.3) contrast(1.1);
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at center, transparent 0%, rgba(5,5,5,.85) 75%, var(--bg) 100%);
+  }
+  .hero-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;width:100%}
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);background:rgba(212,175,55,.06);
+    padding:8px 16px;border-radius:999px;color:var(--gold-2);
+    font-size:12px;letter-spacing:2px;font-weight:700;margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(34px,6vw,72px);
+    line-height:1.05;margin-bottom:18px;letter-spacing:1px;
+    text-shadow:0 4px 30px rgba(0,0,0,.6);
+  }
+  .hero h1 span{
+    background:linear-gradient(90deg,var(--gold),var(--gold-2),#fff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p{color:#cfcfcf;font-size:17px;max-width:620px;margin-bottom:32px;line-height:1.7}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px}
+  .hero-stats{display:flex;gap:34px;margin-top:48px;flex-wrap:wrap}
+  .hero-stats .st{display:flex;flex-direction:column}
+  .hero-stats .st b{font-family:'Orbitron';font-size:30px;color:var(--gold)}
+  .hero-stats .st span{font-size:12px;color:var(--muted);letter-spacing:1px}
+
+  /* Section title */
+  .sec{padding:80px 22px;max-width:1280px;margin:0 auto}
+  .sec-head{text-align:center;margin-bottom:50px}
+  .sec-head .eyebrow{color:var(--gold);letter-spacing:4px;font-size:12px;font-weight:800;text-transform:uppercase}
+  .sec-head h2{font-family:'Orbitron';font-size:clamp(26px,4vw,40px);margin-top:10px;letter-spacing:1px}
+  .sec-head p{color:var(--muted);margin-top:8px}
+
+  /* Services */
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .svc-card{
+    background:linear-gradient(180deg,var(--panel),var(--bg-2));
+    border:1px solid var(--line);border-radius:18px;padding:34px 26px;
+    position:relative;overflow:hidden;transition:.35s;
+  }
+  .svc-card::before{
+    content:"";position:absolute;top:-50%;right:-50%;width:200%;height:200%;
+    background:radial-gradient(circle, rgba(212,175,55,.10), transparent 50%);
+    opacity:0;transition:.4s;
+  }
+  .svc-card:hover{transform:translateY(-6px);border-color:var(--gold)}
+  .svc-card:hover::before{opacity:1}
+  .svc-ic{
+    width:64px;height:64px;border-radius:14px;
+    background:linear-gradient(135deg,rgba(212,175,55,.18),rgba(212,175,55,.04));
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;color:var(--gold);margin-bottom:18px;
+  }
+  .svc-card h3{font-size:20px;margin-bottom:8px}
+  .svc-card p{color:var(--muted);line-height:1.6;font-size:14px}
+
+  /* Products */
+  .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .prod-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    overflow:hidden;transition:.3s;position:relative;
+  }
+  .prod-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  .prod-img{height:180px;background:#000;overflow:hidden;position:relative}
+  .prod-img img{width:100%;height:100%;object-fit:cover;transition:.4s}
+  .prod-card:hover .prod-img img{transform:scale(1.08)}
+  .stock-badge{
+    position:absolute;top:10px;left:10px;padding:5px 10px;border-radius:6px;
+    font-size:11px;font-weight:800;letter-spacing:.5px;
+  }
+  .stock-in{background:rgba(46,204,113,.18);color:var(--green);border:1px solid rgba(46,204,113,.4)}
+  .stock-out{background:rgba(230,57,70,.18);color:var(--red);border:1px solid rgba(230,57,70,.4)}
+  .prod-body{padding:16px}
+  .prod-body h4{font-size:15px;margin-bottom:6px;line-height:1.4}
+  .prod-body p{color:var(--muted);font-size:12px;line-height:1.5}
+  .empty-state{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
+
+  /* Reviews */
+  .reviews-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:30px}
+  .reviews-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start}
+  .review-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;
+    transition:.3s;
+  }
+  .review-card:hover{border-color:var(--gold)}
+  .review-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .avatar{
+    width:42px;height:42px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#7a5d10);
+    display:flex;align-items:center;justify-content:center;font-weight:800;color:#1a1407;
+  }
+  .review-name{font-weight:700;font-size:14px}
+  .review-stars{color:var(--gold);font-size:12px;margin-top:2px}
+  .review-text{color:#cfcfcf;font-size:13px;line-height:1.6}
+  .review-form{
+    background:linear-gradient(180deg,var(--panel),var(--bg-2));
+    border:1px solid var(--line);border-radius:16px;padding:28px;height:fit-content;
+  }
+  .review-form h3{font-family:'Orbitron';font-size:18px;margin-bottom:6px}
+  .review-form .sub{color:var(--muted);font-size:12px;margin-bottom:18px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+  .field input,.field textarea,.field select{
+    width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);
+    padding:11px 14px;border-radius:10px;font-family:inherit;font-size:14px;transition:.25s;
+  }
+  .field input:focus,.field textarea:focus,.field select:focus{
+    outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.12);
+  }
+  .stars-input{display:flex;gap:6px;font-size:22px;cursor:pointer}
+  .stars-input i{color:#444;transition:.2s}
+  .stars-input i.active,.stars-input i:hover,.stars-input i:hover ~ i{color:var(--gold)}
+  .stars-input:hover i{color:#444}
+  .stars-input:hover i:hover{color:var(--gold)}
+  .stars-input:hover i:hover ~ i{color:#444}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .info-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;
+  }
+  .info-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .info-row:last-child{border-bottom:none}
+  .info-ic{
+    width:46px;height:46px;border-radius:12px;
+    background:linear-gradient(135deg,rgba(212,175,55,.16),rgba(212,175,55,.03));
+    border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+    color:var(--gold);font-size:18px;flex-shrink:0;
+  }
+  .info-row .lbl{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+  .info-row .val{font-size:16px;font-weight:700;margin-top:2px;direction:ltr;text-align:left}
+  [dir="rtl"] .info-row .val{text-align:right}
+  .delivery-box{
+    margin-top:18px;padding:16px;border-radius:12px;
+    background:linear-gradient(135deg,rgba(46,204,113,.10),rgba(46,204,113,.02));
+    border:1px solid rgba(46,204,113,.3);
+    display:flex;gap:12px;align-items:flex-start;
+  }
+  .delivery-box i{color:var(--green);font-size:22px;margin-top:2px}
+  .delivery-box .t{font-weight:800;color:var(--green);font-size:13px;margin-bottom:3px}
+  .delivery-box .d{font-size:12px;color:#bdbdbd;line-height:1.5}
+  .map-wrap{
+    border-radius:16px;overflow:hidden;border:1px solid var(--line);height:100%;min-height:380px;
+    position:relative;background:#000;
+  }
+  .map-wrap iframe{width:100%;height:100%;min-height:380px;border:0;filter:grayscale(.4) invert(.92) contrast(.9)}
+
+  /* Footer */
+  footer{
+    border-top:1px solid var(--line);padding:40px 22px;text-align:center;color:var(--muted);
+    background:linear-gradient(180deg,transparent,rgba(212,175,55,.03));
+  }
+  footer .flogo{font-family:'Orbitron';font-weight:900;color:var(--gold);letter-spacing:2px;margin-bottom:8px}
+  footer .links{display:flex;justify-content:center;gap:18px;margin:14px 0;font-size:13px}
+  footer .links a{color:var(--muted);text-decoration:none;transition:.2s}
+  footer .links a:hover{color:var(--gold)}
+
+  /* Modal */
+  .modal-bg{
+    position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
+    z-index:200;display:none;align-items:center;justify-content:center;padding:20px;
+  }
+  .modal-bg.active{display:flex}
+  .modal{
+    background:linear-gradient(180deg,var(--panel),var(--bg-2));
+    border:1px solid var(--gold);border-radius:18px;padding:32px;max-width:430px;width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(212,175,55,.15);
+    animation:pop .3s ease;
+  }
+  @keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+  .modal h3{font-family:'Orbitron';text-align:center;margin-bottom:6px;font-size:20px}
+  .modal .sub{text-align:center;color:var(--muted);font-size:12px;margin-bottom:22px}
+  .google-btn{
+    width:100%;background:#fff;color:#1a1a1a;border:none;padding:13px;border-radius:10px;
+    font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+    transition:.25s;font-size:14px;
+  }
+  .google-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,255,255,.2)}
+  .divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:11px;margin:18px 0}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+  .code-input{
+    width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);
+    padding:13px;border-radius:10px;text-align:center;letter-spacing:4px;font-size:18px;font-weight:700;
+    font-family:'Orbitron';
+  }
+  .code-input:focus{outline:none;border-color:var(--gold)}
+  .err{color:var(--red);font-size:12px;text-align:center;margin-top:8px;min-height:16px}
+
+  /* Admin panel */
+  .admin-panel{
+    position:fixed;top:0;right:0;height:100vh;width:420px;max-width:90vw;
+    background:linear-gradient(180deg,#0c0c10,#060608);
+    border-left:1px solid var(--gold);z-index:150;transform:translateX(100%);
+    transition:.4s cubic-bezier(.6,.2,.1,1);overflow-y:auto;
+    box-shadow:-10px 0 40px rgba(0,0,0,.5);
+  }
+  [dir="ltr"] .admin-panel{right:auto;left:0;border-left:none;border-right:1px solid var(--gold);transform:translateX(-100%)}
+  .admin-panel.active{transform:translateX(0)}
+  .admin-head{
+    padding:22px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+    background:rgba(212,175,55,.05);
+  }
+  .admin-head h3{font-family:'Orbitron';color:var(--gold);font-size:16px}
+  .admin-body{padding:22px}
+  .admin-tabs{display:flex;gap:8px;margin-bottom:20px}
+  .admin-tab{
+    flex:1;background:transparent;border:1px solid var(--line);color:var(--muted);
+    padding:10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;transition:.25s;
+  }
+  .admin-tab.active{background:var(--gold);color:#1a1407;border-color:var(--gold)}
+  .admin-product{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;
+    display:flex;gap:12px;align-items:center;
+  }
+  .admin-product img{width:60px;height:60px;border-radius:8px;object-fit:cover}
+  .admin-product .info{flex:1;min-width:0}
+  .admin-product .info h5{font-size:13px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .admin-product .info .stk{font-size:11px}
+  .admin-product .stk.in{color:var(--green)}
+  .admin-product .stk.out{color:var(--red)}
+  .admin-product button{
+    background:transparent;border:1px solid var(--line);color:var(--muted);
+    width:32px;height:32px;border-radius:8px;cursor:pointer;transition:.2s;
+  }
+  .admin-product button:hover{color:var(--red);border-color:var(--red)}
+  .admin-product .toggle{margin-left:6px}
+  .admin-product .toggle:hover{color:var(--gold);border-color:var(--gold)}
+  .file-preview{
+    width:100%;height:140px;border:2px dashed var(--line);border-radius:10px;
+    display:flex;align-items:center;justify-content:center;color:var(--muted);
+    margin-bottom:10px;overflow:hidden;background:var(--bg);
+  }
+  .file-preview img{width:100%;height:100%;object-fit:cover}
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--panel);border:1px solid var(--gold);color:var(--text);
+    padding:12px 22px;border-radius:10px;font-size:13px;z-index:300;
+    opacity:0;pointer-events:none;transition:.3s;
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media(max-width:900px){
+    .services-grid{grid-template-columns:1fr}
+    .products-grid{grid-template-columns:repeat(2,1fr)}
+    .reviews-wrap{grid-template-columns:1fr}
+    .reviews-list{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .menu-toggle{display:inline-flex}
+    .nav-actions .desktop-only{display:none}
+    .hero{padding-top:130px}
+  }
+  @media(max-width:560px){
+    .products-grid{grid-template-columns:1fr}
+    .hero-stats{gap:20px}
+    .hero-stats .st b{font-size:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-wrap" onclick="scrollTo({top:0,behavior:'smooth'})">
+      <img class="logo-img" src="https://z-cdn-media.chatglm.cn/files/942f5bfa-a223-4ec1-a76b-9cb62b6da18f.png?auth_key=1885764815-f81bafb47cf74ec6bdda630f21c22232-0-516ed7ea2a610aa565a6089e9bcbf4e7" alt=" Makhlouf.h tony Logo">
+      <div class="logo-text">
+        <span class="big">MAKHLOUF.H tony </span>
+        <span class="small" data-i18n="logo_sub">makhlouf.h tony FOR WHEELS</span>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="lang-btn" onclick="toggleLang()">
+        <i class="fa-solid fa-language"></i>
+        <span id="langLabel">العربية</span>
+      </button>
+      <button class="icon-btn desktop-only" onclick="scrollToSec('products')"><i class="fa-solid fa-circle-notch"></i> <span data-i18n="nav_products">Products</span></button>
+      <button class="icon-btn desktop-only" onclick="scrollToSec('reviews')"><i class="fa-solid fa-star"></i> <span data-i18n="nav_reviews">Reviews</span></button>
+      <button class="icon-btn desktop-only" onclick="scrollToSec('contact')"><i class="fa-solid fa-location-dot"></i> <span data-i18n="nav_contact">Contact</span></button>
+      <button class="btn-gold" onclick="openLogin()"><i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="login">Login</span></button>
+      <button class="menu-toggle icon-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+  <div id="mobileMenu" style="display:none;padding:10px 22px 18px;border-top:1px solid var(--line)">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="icon-btn" onclick="scrollToSec('products');toggleMobileMenu()" style="justify-content:flex-start"><i class="fa-solid fa-circle-notch"></i> <span data-i18n="nav_products">Products</span></button>
+      <button class="icon-btn" onclick="scrollToSec('reviews');toggleMobileMenu()" style="justify-content:flex-start"><i class="fa-solid fa-star"></i> <span data-i18n="nav_reviews">Reviews</span></button>
+      <button class="icon-btn" onclick="scrollToSec('contact');toggleMobileMenu()" style="justify-content:flex-start"><i class="fa-solid fa-location-dot"></i> <span data-i18n="nav_contact">Contact</span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag"><i class="fa-solid fa-gem"></i> <span data-i18n="hero_tag">PREMIUM WHEELS & SERVICE</span></div>
+    <h1 data-i18n="hero_title">makhlouf.h tony <span>FOR WHEELS</span></h1>
+    <p data-i18n="hero_desc">Your trusted destination for new & used car oils, premium wheels, professional rim repair and welding services. Quality you can rely on, delivered with expertise.</p>
+    <div class="hero-cta">
+      <button class="btn-gold" onclick="scrollToSec('products')"><i class="fa-solid fa-circle-notch"></i> <span data-i18n="cta_shop">Browse Wheels</span></button>
+      <button class="icon-btn" onclick="scrollToSec('services')"><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="cta_services">Our Services</span></button>
+    </div>
+    <div class="hero-stats">
+      <div class="st"><b>+25</b><span data-i18n="st_years">YEARS EXPERIENCE</span></div>
+      <div class="st"><b>+10K</b><span data-i18n="st_clients">HAPPY CLIENTS</span></div>
+      <div class="st"><b>100%</b><span data-i18n="st_quality">QUALITY GUARANTEE</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="sec" id="services">
+  <div class="sec-head">
+    <div class="eyebrow" data-i18n="srv_eyebrow">WHAT WE OFFER</div>
+    <h2 data-i18n="srv_title">Our Services</h2>
+    <p data-i18n="srv_sub">Complete automotive wheel & oil solutions under one roof</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-ic"><i class="fa-solid fa-oil-can"></i></div>
+      <h3 data-i18n="srv1_title">Car Oils</h3>
+      <p data-i18n="srv1_desc">Used and new — all types of car oils for every engine. Premium quality at competitive prices.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ic"><i class="fa-solid fa-circle-notch"></i></div>
+      <h3 data-i18n="srv2_title">Repairing Rims</h3>
+      <p data-i18n="srv2_desc">Professional rim repair and restoration. We bring your damaged wheels back to life.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ic"><i class="fa-solid fa-fire-flame-curved"></i></div>
+      <h3 data-i18n="srv3_title">Welding</h3>
+      <p data-i18n="srv3_desc">Expert welding services for wheels and rims. Durable, precise and reliable craftsmanship.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="sec" id="products">
+  <div class="sec-head">
+    <div class="eyebrow" data-i18n="prod_eyebrow">OUR COLLECTION</div>
+    <h2 data-i18n="prod_title">Wheels In Stock</h2>
+    <p data-i18n="prod_sub">Browse our available wheels — updated live by our team</p>
+  </div>
+  <div class="products-grid" id="productsGrid">
+    <div class="empty-state" id="emptyState">
+      <i class="fa-solid fa-circle-notch" style="font-size:40px;color:var(--gold);margin-bottom:14px"></i>
+      <p data-i18n="prod_empty">Products will appear here soon. Stay tuned!</p>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="sec" id="reviews">
+  <div class="sec-head">
+    <div class="eyebrow" data-i18n="rev_eyebrow">CUSTOMER FEEDBACK</div>
+    <h2 data-i18n="rev_title">Reviews</h2>
+    <p data-i18n="rev_sub">See what our customers say about us</p>
+  </div>
+  <div class="reviews-wrap">
+    <div class="reviews-list" id="reviewsList"></div>
+    <div class="review-form">
+      <h3 data-i18n="rev_form_title">Add Your Review</h3>
+      <div class="sub" data-i18n="rev_form_sub">Share your experience with us</div>
+      <div class="field">
+        <label data-i18n="rev_name">Your Name</label>
+        <input type="text" id="revName" placeholder="John Doe">
+      </div>
+      <div class="field">
+        <label data-i18n="rev_rate">Rating</label>
+        <div class="stars-input" id="starsInput">
+          <i class="fa-solid fa-star" data-v="1"></i>
+          <i class="fa-solid fa-star" data-v="2"></i>
+          <i class="fa-solid fa-star" data-v="3"></i>
+          <i class="fa-solid fa-star" data-v="4"></i>
+          <i class="fa-solid fa-star" data-v="5"></i>
+        </div>
+      </div>
+      <div class="field">
+        <label data-i18n="rev_text">Your Review</label>
+        <textarea id="revText" rows="4" placeholder="Write your review here..."></textarea>
+      </div>
+      <button class="btn-gold" style="width:100%;justify-content:center" onclick="submitReview()">
+        <i class="fa-solid fa-paper-plane"></i> <span data-i18n="rev_submit">Submit Review</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="sec" id="contact">
+  <div class="sec-head">
+    <div class="eyebrow" data-i18n="con_eyebrow">GET IN TOUCH</div>
+    <h2 data-i18n="con_title">Contact & Location</h2>
+    <p data-i18n="con_sub">Visit us or call — we're here to serve you</p>
+  </div>
+  <div class="contact-grid">
+    <div>
+      <div class="info-card">
+        <div class="info-row">
+          <div class="info-ic"><i class="fa-solid fa-phone"></i></div>
+          <div>
+            <div class="lbl" data-i18n="con_phone1_lbl">Phone 1</div>
+            <div class="val">+961 3 447 775</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-ic"><i class="fa-solid fa-mobile-screen"></i></div>
+          <div>
+            <div class="lbl" data-i18n="con_phone2_lbl">Phone 2</div>
+            <div class="val">+961 71 711 190</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-ic"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <div class="lbl" data-i18n="con_loc_lbl">Location</div>
+            <div class="val" style="font-size:14px" data-i18n="con_loc_val">Baabda, Lebanon</div>
+          </div>
+        </div>
+        <div class="delivery-box">
+          <i class="fa-solid fa-truck-fast"></i>
+          <div>
+            <div class="t" data-i18n="deliv_title">Free Delivery</div>
+            <div class="d" data-i18n="deliv_desc">Free delivery available for Baabda and its surroundings.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="map-wrap">
+      <iframe src="https://maps.google.com/maps?q=33.866409,35.530209&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">makhlouf.h tony</div>
+  <div data-i18n="footer_tag">makhlouf.h tony FOR WHEELS — Quality You Can Trust</div>
+  <div class="links">
+    <a href="#services" data-i18n="nav_services">Services</a>
+    <a href="#products" data-i18n="nav_products">Products</a>
+    <a href="#reviews" data-i18n="nav_reviews">Reviews</a>
+    <a href="#contact" data-i18n="nav_contact">Contact</a>
+  </div>
+  <div style="font-size:12px;opacity:.6">© <span id="year"></span> Makhlouf.H — All Rights Reserved</div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal-bg" id="loginModal">
+  <div class="modal">
+    <h3 data-i18n="login_title">Sign In</h3>
+    <div class="sub" data-i18n="login_sub">Choose your preferred login method</div>
+    <button class="google-btn" onclick="googleLogin()">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+      <span data-i18n="login_google">Continue with Google</span>
+    </button>
+    <div class="divider"><span data-i18n="login_or">OR</span></div>
+    <input type="password" class="code-input" id="adminCode" placeholder="• • • • • • • •" maxlength="8" data-i18n-ph="login_code_ph" placeholder-fallback="Admin Code">
+    <div class="err" id="loginErr"></div>
+    <button class="btn-gold" style="width:100%;justify-content:center;margin-top:14px" onclick="adminLogin()">
+      <i class="fa-solid fa-shield-halved"></i> <span data-i18n="login_admin">Admin Access</span>
+    </button>
+    <button class="icon-btn" style="width:100%;justify-content:center;margin-top:10px" onclick="closeLogin()">
+      <span data-i18n="cancel">Cancel</span>
+    </button>
+  </div>
+</div>
+
+<!-- Admin Panel -->
+<aside class="admin-panel" id="adminPanel">
+  <div class="admin-head">
+    <h3><i class="fa-solid fa-shield-halved"></i> <span data-i18n="admin_title">Admin Panel</span></h3>
+    <button class="icon-btn" onclick="closeAdmin()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('add',this)" data-i18n="admin_tab_add">Add Product</button>
+      <button class="admin-tab" onclick="switchAdminTab('manage',this)" data-i18n="admin_tab_manage">Manage</button>
+    </div>
+
+    <div id="addTab">
+      <div class="field">
+        <label data-i18n="admin_photo">Product Photo</label>
+        <div class="file-preview" id="filePreview" onclick="document.getElementById('prodPhoto').click()">
+          <span><i class="fa-solid fa-image"></i> <span data-i18n="admin_click">Click to upload</span></span>
+        </div>
+        <input type="file" id="prodPhoto" accept="image/*" style="display:none" onchange="previewPhoto(this)">
+      </div>
+      <div class="field">
+        <label data-i18n="admin_name">Product Name</label>
+        <input type="text" id="prodName" data-i18n-ph="admin_name_ph" placeholder-fallback="e.g. 18 inch Sport Rim">
+      </div>
+      <div class="field">
+        <label data-i18n="admin_desc">Description</label>
+        <textarea id="prodDesc" rows="3" data-i18n-ph="admin_desc_ph" placeholder-fallback="Brief description..."></textarea>
+      </div>
+      <div class="field">
+        <label data-i18n="admin_stock">Stock Status</label>
+        <select id="prodStock">
+          <option value="in" data-i18n="admin_stock_in">In Stock</option>
+          <option value="out" data-i18n="admin_stock_out">Out of Stock</option>
+        </select>
+      </div>
+      <button class="btn-gold" style="width:100%;justify-content:center" onclick="addProduct()">
+        <i class="fa-solid fa-plus"></i> <span data-i18n="admin_add_btn">Add Product</span>
+      </button>
+    </div>
+
+    <div id="manageTab" style="display:none">
+      <div id="adminProductsList"></div>
+      <div id="adminEmpty" style="text-align:center;color:var(--muted);padding:30px;font-size:13px" data-i18n="admin_no_products">No products added yet.</div>
+    </div>
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ====== i18n ====== */
+const I18N = {
+  en:{
+    logo_sub:"makhlouf.h tony FOR WHEELS",
+    nav_products:"Products", nav_reviews:"Reviews", nav_contact:"Contact", nav_services:"Services",
+    login:"Login",
+    hero_tag:"PREMIUM WHEELS & SERVICE",
+    hero_title:'makhlouf.h tony <span>FOR WHEELS</span>',
+    hero_desc:"Your trusted destination for new & used car oils, premium wheels, professional rim repair and welding services. Quality you can rely on, delivered with expertise.",
+    cta_shop:"Browse Wheels", cta_services:"Our Services",
+    st_years:"YEARS EXPERIENCE", st_clients:"HAPPY CLIENTS", st_quality:"QUALITY GUARANTEE",
+    srv_eyebrow:"WHAT WE OFFER", srv_title:"Our Services", srv_sub:"Complete automotive wheel & oil solutions under one roof",
+    srv1_title:"Car Oils", srv1_desc:"Used and new — all types of car oils for every engine. Premium quality at competitive prices.",
+    srv2_title:"Repairing Rims", srv2_desc:"Professional rim repair and restoration. We bring your damaged wheels back to life.",
+    srv3_title:"Welding", srv3_desc:"Expert welding services for wheels and rims. Durable, precise and reliable craftsmanship.",
+    prod_eyebrow:"OUR COLLECTION", prod_title:"Wheels In Stock", prod_sub:"Browse our available wheels — updated live by our team",
+    prod_empty:"Products will appear here soon. Stay tuned!",
+    rev_eyebrow:"CUSTOMER FEEDBACK", rev_title:"Reviews", rev_sub:"See what our customers say about us",
+    rev_form_title:"Add Your Review", rev_form_sub:"Share your experience with us",
+    rev_name:"Your Name", rev_rate:"Rating", rev_text:"Your Review", rev_submit:"Submit Review",
+    con_eyebrow:"GET IN TOUCH", con_title:"Contact & Location", con_sub:"Visit us or call — we're here to serve you",
+    con_phone1_lbl:"Phone 1", con_phone2_lbl:"Phone 2", con_loc_lbl:"Location", con_loc_val:"Baabda, Lebanon",
+    deliv_title:"Free Delivery", deliv_desc:"Free delivery available for Baabda and its surroundings.",
+    footer_tag:"makhlouf.h tony FOR WHEELS — Quality You Can Trust",
+    login_title:"Sign In", login_sub:"Choose your preferred login method", login_google:"Continue with Google",
+    login_or:"OR", login_code_ph:"Admin Code", login_admin:"Admin Access", cancel:"Cancel",
+    admin_title:"Admin Panel", admin_tab_add:"Add Product", admin_tab_manage:"Manage",
+    admin_photo:"Product Photo", admin_click:"Click to upload",
+    admin_name:"Product Name", admin_name_ph:"e.g. 18 inch Sport Rim",
+    admin_desc:"Description", admin_desc_ph:"Brief description...",
+    admin_stock:"Stock Status", admin_stock_in:"In Stock", admin_stock_out:"Out of Stock",
+    admin_add_btn:"Add Product", admin_no_products:"No products added yet.",
+    in_stock:"In Stock", out_stock:"Out of Stock",
+    t_add:"Product added successfully!", t_rem:"Product removed", t_rev:"Review submitted! Thank you",
+    t_google:"Signed in with Google (demo)", t_wrong:"Wrong admin code", t_need_photo:"Please select a photo",
+    t_need_name:"Please enter a product name", t_need_rev:"Please fill all fields"
+  },
+  ar:{
+    logo_sub:"توني مخلوف للجنوط",
+    nav_products:"المنتجات", nav_reviews:"التقييمات", nav_contact:"تواصل", nav_services:"خدماتنا",
+    login:"تسجيل الدخول",
+    hero_tag:"جنوط وخدمات احترافية",
+    hero_title:'توني مخلوف <span>للجنوط</span>',
+    hero_desc:"وجهتك الموثوقة لزيوت السيارات الجديدة والمستعملة، الجنوط عالية الجودة، إصلاح الجنوط الاحترافي وخدمات اللحام. جودة يمكنك الاعتماد عليها، تُقدّم بخبرة.",
+    cta_shop:"تصفّح الجنوط", cta_services:"خدماتنا",
+    st_years:"سنوات خبرة", st_clients:"عميل سعيد", st_quality:"ضمان الجودة",
+    srv_eyebrow:"ما نقدّمه", srv_title:"خدماتنا", srv_sub:"حلول شاملة للجنوط وزيوت السيارات تحت سقف واحد",
+    srv1_title:"زيوت السيارات", srv1_desc:"جديد ومستعمل — جميع أنواع زيوت السيارات لكل محرك. جودة عالية بأسعار تنافسية.",
+    srv2_title:"إصلاح الجنوط", srv2_desc:"إصلاح وترميم الجنوط باحترافية. نُعيد لجنوطك التالفة الحياة.",
+    srv3_title:"اللحام", srv3_desc:"خدمات لحام احترافية للجنوط. صناعة متينة ودقيقة وموثوقة.",
+    prod_eyebrow:"مجموعتنا", prod_title:"الجنوط المتوفرة", prod_sub:"تصفّح الجنوط المتوفرة — يتم التحديث مباشرة من فريقنا",
+    prod_empty:"ستظهر المنتجات قريباً. ترقّبونا!",
+    rev_eyebrow:"آراء العملاء", rev_title:"التقييمات", rev_sub:"شاهد ماذا يقول عملاؤنا عنّا",
+    rev_form_title:"أضف تقييمك", rev_form_sub:"شاركنا تجربتك معنا",
+    rev_name:"اسمك", rev_rate:"التقييم", rev_text:"رأيك", rev_submit:"إرسال التقييم",
+    con_eyebrow:"تواصل معنا", con_title:"التواصل والموقع", con_sub:"زرنا أو اتصل بنا — هنا لخدمتك",
+    con_phone1_lbl:"هاتف 1", con_phone2_lbl:"هاتف 2", con_loc_lbl:"الموقع", con_loc_val:"بعبدا، لبنان",
+    deliv_title:"توصيل مجاني", deliv_desc:"توصيل مجاني لبعبدا والمناطق المحيطة بها.",
+    footer_tag:"توني مخلوف للجنوط — جودة يمكنك الوثوق بها",
+    login_title:"تسجيل الدخول", login_sub:"اختر طريقة الدخول المفضّلة لديك", login_google:"المتابعة عبر Google",
+    login_or:"أو", login_code_ph:"رمز المشرف", login_admin:"دخول المشرف", cancel:"إلغاء",
+    admin_title:"لوحة المشرف", admin_tab_add:"إضافة منتج", admin_tab_manage:"إدارة",
+    admin_photo:"صورة المنتج", admin_click:"اضغط للرفع",
+    admin_name:"اسم المنتج", admin_name_ph:"مثال: جنط رياضي 18 إنش",
+    admin_desc:"الوصف", admin_desc_ph:"وصف مختصر...",
+    admin_stock:"حالة التوفّر", admin_stock_in:"متوفر", admin_stock_out:"غير متوفر",
+    admin_add_btn:"إضافة المنتج", admin_no_products:"لم تتم إضافة أي منتج بعد.",
+    in_stock:"متوفر", out_stock:"غير متوفر",
+    t_add:"تمت إضافة المنتج بنجاح!", t_rem:"تم حذف المنتج", t_rev:"تم إرسال تقييمك! شكراً لك",
+    t_google:"تم تسجيل الدخول عبر Google (تجريبي)", t_wrong:"رمز المشرف غير صحيح", t_need_photo:"يرجى اختيار صورة",
+    t_need_name:"يرجى إدخال اسم المنتج", t_need_rev:"يرجى ملء جميع الحقول"
+  }
+};
+
+let currentLang = localStorage.getItem('lang') || 'ar';
+
+function applyLang(){
+  const dict = I18N[currentLang];
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(dict[k]) el.innerHTML = dict[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k = el.getAttribute('data-i18n-ph');
+    if(dict[k]) el.placeholder = dict[k];
+  });
+  document.getElementById('langLabel').textContent = currentLang === 'ar' ? 'English' : 'العربية';
+  renderProducts();
+  renderReviews();
+  renderAdminProducts();
+}
+function toggleLang(){
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('lang', currentLang);
+  applyLang();
+}
+
+/* ====== Data ====== */
+let products = JSON.parse(localStorage.getItem('mh_products') || '[]');
+let reviews = JSON.parse(localStorage.getItem('mh_reviews') || '[]');
+
+// seed reviews if empty
+if(reviews.length === 0){
+  reviews = [
+    {name:"Khalil A.", stars:5, text:"Best wheel shop in Baabda! Fixed my rim perfectly and the price was fair.", date:"2024-09-12"},
+    {name:"Sara M.", stars:5, text:"توني محترف بامتياز. غيّر جنوط سيارتي وصاروا كالجدد. أنصح فيه بشدة!", date:"2024-08-30"},
+    {name:"Joseph T.", stars:4, text:"Quick service and good quality oils. Will come back again.", date:"2024-07-21"}
+  ];
+  localStorage.setItem('mh_reviews', JSON.stringify(reviews));
+}
+
+function saveProducts(){ localStorage.setItem('mh_products', JSON.stringify(products)); }
+function saveReviews(){ localStorage.setItem('mh_reviews', JSON.stringify(reviews)); }
+
+/* ====== Navigation ====== */
+function scrollToSec(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+function toggleMobileMenu(){
+  const m = document.getElementById('mobileMenu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+
+/* ====== Login / Admin ====== */
+const ADMIN_CODE = "71688048"; // kept internal, never displayed
+
+function openLogin(){
+  document.getElementById('loginModal').classList.add('active');
+  document.getElementById('loginErr').textContent = '';
+  document.getElementById('adminCode').value = '';
+}
+function closeLogin(){
+  document.getElementById('loginModal').classList.remove('active');
+}
+function googleLogin(){
+  // Demo Google login — in production would integrate Google Identity Services
+  showToast(I18N[currentLang].t_google);
+  closeLogin();
+}
+function adminLogin(){
+  const code = document.getElementById('adminCode').value.trim();
+  if(code === ADMIN_CODE){
+    closeLogin();
+    openAdmin();
+  } else {
+    document.getElementById('loginErr').textContent = I18N[currentLang].t_wrong;
+  }
+}
+
+function openAdmin(){
+  document.getElementById('adminPanel').classList.add('active');
+  switchAdminTab('add', document.querySelector('.admin-tab'));
+  renderAdminProducts();
+}
+function closeAdmin(){
+  document.getElementById('adminPanel').classList.remove('active');
+}
+function switchAdminTab(tab, btn){
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('addTab').style.display = tab === 'add' ? 'block' : 'none';
+  document.getElementById('manageTab').style.display = tab === 'manage' ? 'block' : 'none';
+}
+
+/* ====== Products ====== */
+let currentPhoto = null;
+function previewPhoto(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentPhoto = e.target.result;
+    document.getElementById('filePreview').innerHTML = `<img src="${e.target.result}">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function addProduct(){
+  const name = document.getElementById('prodName').value.trim();
+  const desc = document.getElementById('prodDesc').value.trim();
+  const stock = document.getElementById('prodStock').value;
+  if(!currentPhoto){ showToast(I18N[currentLang].t_need_photo, true); return; }
+  if(!name){ showToast(I18N[currentLang].t_need_name, true); return; }
+  products.unshift({ id: Date.now(), name, desc, stock, photo: currentPhoto });
+  saveProducts();
+  renderProducts();
+  renderAdminProducts();
+  // reset
+  document.getElementById('prodName').value = '';
+  document.getElementById('prodDesc').value = '';
+  document.getElementById('prodPhoto').value = '';
+  currentPhoto = null;
+  document.getElementById('filePreview').innerHTML = `<span><i class="fa-solid fa-image"></i> ${I18N[currentLang].admin_click}</span>`;
+  showToast(I18N[currentLang].t_add);
+}
+
+function removeProduct(id){
+  products = products.filter(p => p.id !== id);
+  saveProducts();
+  renderProducts();
+  renderAdminProducts();
+  showToast(I18N[currentLang].t_rem);
+}
+
+function toggleStock(id){
+  const p = products.find(p => p.id === id);
+  if(p){
+    p.stock = p.stock === 'in' ? 'out' : 'in';
+    saveProducts();
+    renderProducts();
+    renderAdminProducts();
+  }
+}
+
+function renderProducts(){
+  const grid = document.getElementById('productsGrid');
+  const empty = document.getElementById('emptyState');
+  if(products.length === 0){
+    grid.innerHTML = '';
+    grid.appendChild(empty);
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = products.map(p => `
+    <div class="prod-card">
+      <div class="prod-img">
+        <img src="${p.photo}" alt="${escapeHtml(p.name)}">
+        <span class="stock-badge ${p.stock === 'in' ? 'stock-in' : 'stock-out'}">
+          ${p.stock === 'in' ? I18N[currentLang].in_stock : I18N[currentLang].out_stock}
+        </span>
+      </div>
+      <div class="prod-body">
+        <h4>${escapeHtml(p.name)}</h4>
+        <p>${escapeHtml(p.desc) || ''}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAdminProducts(){
+  const list = document.getElementById('adminProductsList');
+  const empty = document.getElementById('adminEmpty');
+  if(products.length === 0){
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  list.innerHTML = products.map(p => `
+    <div class="admin-product">
+      <img src="${p.photo}" alt="">
+      <div class="info">
+        <h5>${escapeHtml(p.name)}</h5>
+        <div class="stk ${p.stock === 'in' ? 'in' : 'out'}">
+          ${p.stock === 'in' ? I18N[currentLang].in_stock : I18N[currentLang].out_stock}
+        </div>
+      </div>
+      <button class="toggle" onclick="toggleStock(${p.id})" title="Toggle stock">
+        <i class="fa-solid fa-rotate"></i>
+      </button>
+      <button onclick="removeProduct(${p.id})" title="Remove">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+  `).join('');
+}
+
+/* ====== Reviews ====== */
+let selectedStars = 0;
+document.querySelectorAll('#starsInput i').forEach(star => {
+  star.addEventListener('click', () => {
+    selectedStars = parseInt(star.dataset.v);
+    updateStarsUI();
+  });
+});
+function updateStarsUI(){
+  document.querySelectorAll('#starsInput i').forEach(s => {
+    s.classList.toggle('active', parseInt(s.dataset.v) <= selectedStars);
+  });
+}
+
+function submitReview(){
+  const name = document.getElementById('revName').value.trim();
+  const text = document.getElementById('revText').value.trim();
+  if(!name || !text || selectedStars === 0){
+    showToast(I18N[currentLang].t_need_rev, true);
+    return;
+  }
+  reviews.unshift({
+    name, stars: selectedStars, text,
+    date: new Date().toISOString().slice(0,10)
+  });
+  saveReviews();
+  renderReviews();
+  document.getElementById('revName').value = '';
+  document.getElementById('revText').value = '';
+  selectedStars = 0;
+  updateStarsUI();
+  showToast(I18N[currentLang].t_rev);
+}
+
+function renderReviews(){
+  const list = document.getElementById('reviewsList');
+  if(reviews.length === 0){
+    list.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><i class="fa-solid fa-star" style="font-size:34px;color:var(--gold);margin-bottom:10px"></i><p>No reviews yet. Be the first!</p></div>`;
+    return;
+  }
+  list.innerHTML = reviews.map(r => `
+    <div class="review-card">
+      <div class="review-head">
+        <div class="avatar">${escapeHtml(r.name.charAt(0).toUpperCase())}</div>
+        <div>
+          <div class="review-name">${escapeHtml(r.name)}</div>
+          <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)} <span style="color:var(--muted);font-size:10px;margin-left:6px">${r.date}</span></div>
+        </div>
+      </div>
+      <div class="review-text">${escapeHtml(r.text)}</div>
+    </div>
+  `).join('');
+}
+
+/* ====== Utils ====== */
+function escapeHtml(s){
+  if(!s) return '';
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function showToast(msg, isError){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.borderColor = isError ? 'var(--red)' : 'var(--gold)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Close modal on outside click
+document.getElementById('loginModal').addEventListener('click', e => {
+  if(e.target.id === 'loginModal') closeLogin();
+});
+
+// Init
+applyLang();
+</script>
+</body>
+</html>
