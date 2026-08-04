@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 <title>MAKHLOUF.H | makhlouf.h tony For Wheels</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
     --line:rgba(212,175,55,.18);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{
     font-family:'Cairo','Rajdhani',sans-serif;
     background:
@@ -34,12 +34,29 @@
     color:var(--text);
     min-height:100vh;
     overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url('https://z-cdn-media.chatglm.cn/files/d3da66b7-a03a-4ee8-a15d-91d0b5dc61e7.jpg?auth_key=1885836614-c1079d1fe01245e1a9c9c48c804c3796-0-d56a7fd2d563ad085e57686b9a7bb55a') center/cover no-repeat fixed;
+    opacity:.18;
+    filter:grayscale(.3) contrast(1.1) brightness(0.8);
+    z-index:-2;
+  }
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:linear-gradient(180deg, rgba(5,5,5,.72) 0%, rgba(5,5,5,.88) 100%);
+    z-index:-1;
   }
   [dir="ltr"] body{font-family:'Rajdhani','Cairo',sans-serif}
   /* Top bar */
   .topbar{
     position:fixed;top:0;left:0;right:0;z-index:100;
-    background:rgba(8,8,10,.78);
+    background:rgba(8,8,10,.82);
     backdrop-filter:blur(14px);
     -webkit-backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
@@ -116,11 +133,44 @@
   .hero-stats .st span{font-size:12px;color:var(--muted);letter-spacing:1px}
 
   /* Section title */
-  .sec{padding:80px 22px;max-width:1280px;margin:0 auto}
+  .sec{padding:80px 22px;max-width:1280px;margin:0 auto;position:relative;z-index:1}
   .sec-head{text-align:center;margin-bottom:50px}
   .sec-head .eyebrow{color:var(--gold);letter-spacing:4px;font-size:12px;font-weight:800;text-transform:uppercase}
   .sec-head h2{font-family:'Orbitron';font-size:clamp(26px,4vw,40px);margin-top:10px;letter-spacing:1px}
   .sec-head p{color:var(--muted);margin-top:8px}
+
+  /* ===== SECTION BANNER (REVEALED BACKGROUND) ===== */
+  .sec-banner{
+    position:relative;
+    height:320px;
+    border-radius:18px;
+    overflow:hidden;
+    margin-bottom:34px;
+    border:1px solid var(--line);
+    box-shadow:0 12px 40px rgba(0,0,0,.5);
+  }
+  .sec-banner img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .6s ease;
+    display:block;
+  }
+  .sec-banner:hover img{transform:scale(1.05)}
+  /* Only a subtle fade at the very bottom for text readability — image stays 100% revealed */
+  .sec-banner::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 0%, transparent 45%, rgba(5,5,5,.35) 80%, rgba(5,5,5,.7) 100%);
+  }
+  .sec-banner .banner-text{
+    position:absolute;bottom:24px;left:24px;right:24px;z-index:2;
+  }
+  .sec-banner .banner-text h3{
+    font-family:'Orbitron';font-size:24px;color:#fff;
+    text-shadow:0 2px 12px rgba(0,0,0,.8);margin-bottom:6px;
+  }
+  .sec-banner .banner-text p{
+    color:var(--gold-2);font-size:13px;font-weight:600;letter-spacing:1px;
+    text-shadow:0 1px 6px rgba(0,0,0,.8);
+  }
 
   /* Services */
   .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -166,6 +216,19 @@
   .prod-body h4{font-size:15px;margin-bottom:6px;line-height:1.4}
   .prod-body p{color:var(--muted);font-size:12px;line-height:1.5}
   .empty-state{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
+
+  /* Oils Info Cards */
+  .oils-features{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px;
+  }
+  .oil-feat{
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:22px;transition:.3s;
+  }
+  .oil-feat:hover{border-color:var(--gold);transform:translateY(-3px)}
+  .oil-feat i{font-size:28px;color:var(--gold);margin-bottom:12px}
+  .oil-feat h4{font-size:15px;margin-bottom:6px}
+  .oil-feat p{color:var(--muted);font-size:13px;line-height:1.5}
 
   /* Reviews */
   .reviews-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:30px}
@@ -241,9 +304,10 @@
   footer{
     border-top:1px solid var(--line);padding:40px 22px;text-align:center;color:var(--muted);
     background:linear-gradient(180deg,transparent,rgba(212,175,55,.03));
+    position:relative;z-index:1;
   }
   footer .flogo{font-family:'Orbitron';font-weight:900;color:var(--gold);letter-spacing:2px;margin-bottom:8px}
-  footer .links{display:flex;justify-content:center;gap:18px;margin:14px 0;font-size:13px}
+  footer .links{display:flex;justify-content:center;gap:18px;margin:14px 0;font-size:13px;flex-wrap:wrap}
   footer .links a{color:var(--muted);text-decoration:none;transition:.2s}
   footer .links a:hover{color:var(--gold)}
 
@@ -295,10 +359,11 @@
   }
   .admin-head h3{font-family:'Orbitron';color:var(--gold);font-size:16px}
   .admin-body{padding:22px}
-  .admin-tabs{display:flex;gap:8px;margin-bottom:20px}
+  .admin-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
   .admin-tab{
     flex:1;background:transparent;border:1px solid var(--line);color:var(--muted);
     padding:10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;transition:.25s;
+    min-width:80px;
   }
   .admin-tab.active{background:var(--gold);color:#1a1407;border-color:var(--gold)}
   .admin-product{
@@ -333,20 +398,136 @@
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+  /* Sync box */
+  .sync-box{
+    background:linear-gradient(135deg,rgba(46,204,113,.08),rgba(46,204,113,.02));
+    border:1px solid rgba(46,204,113,.3);border-radius:12px;padding:16px;margin-bottom:14px;
+  }
+  .sync-status{
+    display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;
+    margin-bottom:12px;
+  }
+  .sync-dot{width:10px;height:10px;border-radius:50%;background:var(--muted)}
+  .sync-dot.online{background:var(--green);box-shadow:0 0 10px var(--green)}
+  .sync-dot.offline{background:var(--red)}
+  .sync-help{
+    background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;
+    font-size:11px;color:var(--muted);line-height:1.6;margin-top:10px;
+  }
+  .sync-help code{color:var(--gold-2);background:rgba(212,175,55,.1);padding:1px 5px;border-radius:3px}
+
+  /* ===== TABLET ===== */
   @media(max-width:900px){
     .services-grid{grid-template-columns:1fr}
     .products-grid{grid-template-columns:repeat(2,1fr)}
+    .oils-features{grid-template-columns:1fr}
     .reviews-wrap{grid-template-columns:1fr}
     .reviews-list{grid-template-columns:1fr}
     .contact-grid{grid-template-columns:1fr}
     .menu-toggle{display:inline-flex}
     .nav-actions .desktop-only{display:none}
     .hero{padding-top:130px}
+    /* FULL SCREEN BANNERS ON TABLET/MOBILE */
+    .sec-banner{
+      height:100vh;
+      min-height:560px;
+      max-height:900px;
+      border-radius:0;
+      margin:0 -22px 34px;
+      border-left:none;border-right:none;
+    }
+    .sec-banner .banner-text{bottom:40px;left:24px;right:24px}
+    .sec-banner .banner-text h3{font-size:26px}
+    .sec-banner .banner-text p{font-size:14px}
   }
+
+  /* ===== MOBILE ===== */
   @media(max-width:560px){
-    .products-grid{grid-template-columns:1fr}
-    .hero-stats{gap:20px}
-    .hero-stats .st b{font-size:24px}
+    .topbar-inner{padding:10px 14px;gap:8px}
+    .logo-img{width:42px;height:42px;border-radius:10px}
+    .logo-text .big{font-size:14px;letter-spacing:1px}
+    .logo-text .small{font-size:9px;letter-spacing:1px}
+    .lang-btn,.icon-btn{padding:8px 11px;font-size:12px}
+    .btn-gold{padding:9px 13px;font-size:12px}
+    .nav-actions{gap:6px}
+
+    .hero{padding:110px 16px 50px;min-height:100vh}
+    .hero-tag{font-size:10px;padding:7px 13px;letter-spacing:1px;margin-bottom:16px}
+    .hero h1{font-size:32px;line-height:1.1;margin-bottom:14px}
+    .hero p{font-size:15px;margin-bottom:24px}
+    .hero-cta{flex-direction:column;gap:10px}
+    .hero-cta .btn-gold,.hero-cta .icon-btn{
+      width:100%;justify-content:center;padding:13px;font-size:14px;
+    }
+    .hero-stats{gap:18px;margin-top:36px}
+    .hero-stats .st b{font-size:22px}
+    .hero-stats .st span{font-size:10px;letter-spacing:.5px}
+
+    .sec{padding:60px 16px}
+    .sec-head{margin-bottom:36px}
+    .sec-head .eyebrow{font-size:11px;letter-spacing:2px}
+    .sec-head h2{font-size:24px}
+    .sec-head p{font-size:13px}
+
+    /* FULL SCREEN BANNERS ON MOBILE */
+    .sec-banner{
+      height:100vh;
+      min-height:520px;
+      max-height:820px;
+      margin:0 -16px 30px;
+    }
+    .sec-banner .banner-text{bottom:30px;left:18px;right:18px}
+    .sec-banner .banner-text h3{font-size:21px;line-height:1.3}
+    .sec-banner .banner-text p{font-size:13px}
+
+    .products-grid{grid-template-columns:1fr;gap:16px}
+    .prod-img{height:220px}
+    .prod-body{padding:18px}
+    .prod-body h4{font-size:16px}
+    .prod-body p{font-size:13px}
+
+    .svc-card{padding:26px 20px}
+    .svc-ic{width:56px;height:56px;font-size:24px}
+    .svc-card h3{font-size:18px}
+    .svc-card p{font-size:13px}
+
+    .oil-feat{padding:18px}
+    .oil-feat i{font-size:26px}
+    .oil-feat h4{font-size:15px}
+
+    .review-card{padding:16px}
+    .review-form{padding:22px}
+    .review-form h3{font-size:16px}
+
+    .info-card{padding:20px}
+    .info-row{padding:12px 0;gap:12px}
+    .info-ic{width:42px;height:42px;font-size:16px}
+    .info-row .val{font-size:15px}
+    .map-wrap{min-height:300px}
+    .map-wrap iframe{min-height:300px}
+
+    footer{padding:32px 16px}
+    footer .links{gap:14px;font-size:12px}
+
+    .modal{padding:24px}
+    .modal h3{font-size:18px}
+  }
+
+  /* ===== SMALL MOBILE ===== */
+  @media(max-width:380px){
+    .hero h1{font-size:27px}
+    .logo-text .big{font-size:12px}
+    .logo-text .small{display:none}
+    .sec-banner .banner-text h3{font-size:18px}
+  }
+
+  /* Landscape phone - keep banners tall but not full 100vh */
+  @media(max-width:900px) and (orientation:landscape) and (max-height:500px){
+    .sec-banner{
+      height:100vh;
+      min-height:420px;
+    }
+    .hero{min-height:auto;padding-top:100px;padding-bottom:40px}
   }
 </style>
 </head>
@@ -368,6 +549,7 @@
         <span id="langLabel">العربية</span>
       </button>
       <button class="icon-btn desktop-only" onclick="scrollToSec('products')"><i class="fa-solid fa-circle-notch"></i> <span data-i18n="nav_products">Products</span></button>
+      <button class="icon-btn desktop-only" onclick="scrollToSec('oils')"><i class="fa-solid fa-oil-can"></i> <span data-i18n="nav_oils">Oils</span></button>
       <button class="icon-btn desktop-only" onclick="scrollToSec('reviews')"><i class="fa-solid fa-star"></i> <span data-i18n="nav_reviews">Reviews</span></button>
       <button class="icon-btn desktop-only" onclick="scrollToSec('contact')"><i class="fa-solid fa-location-dot"></i> <span data-i18n="nav_contact">Contact</span></button>
       <button class="btn-gold" onclick="openLogin()"><i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="login">Login</span></button>
@@ -377,6 +559,7 @@
   <div id="mobileMenu" style="display:none;padding:10px 22px 18px;border-top:1px solid var(--line)">
     <div style="display:flex;flex-direction:column;gap:8px">
       <button class="icon-btn" onclick="scrollToSec('products');toggleMobileMenu()" style="justify-content:flex-start"><i class="fa-solid fa-circle-notch"></i> <span data-i18n="nav_products">Products</span></button>
+      <button class="icon-btn" onclick="scrollToSec('oils');toggleMobileMenu()" style="justify-content:flex-start"><i class="fa-solid fa-oil-can"></i> <span data-i18n="nav_oils">Oils</span></button>
       <button class="icon-btn" onclick="scrollToSec('reviews');toggleMobileMenu()" style="justify-content:flex-start"><i class="fa-solid fa-star"></i> <span data-i18n="nav_reviews">Reviews</span></button>
       <button class="icon-btn" onclick="scrollToSec('contact');toggleMobileMenu()" style="justify-content:flex-start"><i class="fa-solid fa-location-dot"></i> <span data-i18n="nav_contact">Contact</span></button>
     </div>
@@ -427,17 +610,61 @@
   </div>
 </section>
 
-<!-- Products -->
+<!-- Products (WHEELS) -->
 <section class="sec" id="products">
   <div class="sec-head">
     <div class="eyebrow" data-i18n="prod_eyebrow">OUR COLLECTION</div>
     <h2 data-i18n="prod_title">Wheels In Stock</h2>
     <p data-i18n="prod_sub">Browse our available wheels — updated live by our team</p>
   </div>
+
+  <div class="sec-banner">
+    <img src="https://z-cdn-media.chatglm.cn/files/de27772c-eb92-4c40-8d44-21ecab091b52.png?auth_key=1885831634-7adf0e59498148c7beb931a4b6dabfb6-0-cee61d10978dcb5763a564ffbeba4b85" alt="Sailun Tyres">
+    <div class="banner-text">
+      <h3 data-i18n="wheels_banner_title">SAILUN TYRES — All Models Available</h3>
+      <p data-i18n="wheels_banner_sub">We have all Sailun tires for all cars and models</p>
+    </div>
+  </div>
+
   <div class="products-grid" id="productsGrid">
     <div class="empty-state" id="emptyState">
       <i class="fa-solid fa-circle-notch" style="font-size:40px;color:var(--gold);margin-bottom:14px"></i>
       <p data-i18n="prod_empty">Products will appear here soon. Stay tuned!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OILS SECTION ===== -->
+<section class="sec" id="oils">
+  <div class="sec-head">
+    <div class="eyebrow" data-i18n="oils_eyebrow">ENGINE PROTECTION</div>
+    <h2 data-i18n="oils_title">Our Oils</h2>
+    <p data-i18n="oils_sub">Premium oils for maximum engine performance and protection</p>
+  </div>
+
+  <div class="sec-banner">
+    <img src="https://z-cdn-media.chatglm.cn/files/8490cbdb-c1d9-4a35-916f-8d5f92ecff9f.png?auth_key=1885831634-02669ee1eb0144ab85844a6888bea9e9-0-f82a08e63df94389e9937f79fd349103" alt="MAKHLOUF.H.TONY Oils">
+    <div class="banner-text">
+      <h3 data-i18n="oils_banner_title">We Use Only These Oils</h3>
+      <p data-i18n="oils_banner_sub">CHAMP · ROVEL · SAILUN — Premium quality protection</p>
+    </div>
+  </div>
+
+  <div class="oils-features">
+    <div class="oil-feat">
+      <i class="fa-solid fa-gauge-high"></i>
+      <h4 data-i18n="oil_f1_title">Maximum Performance</h4>
+      <p data-i18n="oil_f1_desc">Engineered to deliver peak engine performance under all driving conditions.</p>
+    </div>
+    <div class="oil-feat">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h4 data-i18n="oil_f2_title">Premium Protection</h4>
+      <p data-i18n="oil_f2_desc">Advanced formula protects your engine against wear, heat and deposits.</p>
+    </div>
+    <div class="oil-feat">
+      <i class="fa-solid fa-droplet"></i>
+      <h4 data-i18n="oil_f3_title">All Engine Types</h4>
+      <p data-i18n="oil_f3_desc">Compatible with gasoline and diesel engines — new and used oils available.</p>
     </div>
   </div>
 </section>
@@ -531,6 +758,7 @@
   <div class="links">
     <a href="#services" data-i18n="nav_services">Services</a>
     <a href="#products" data-i18n="nav_products">Products</a>
+    <a href="#oils" data-i18n="nav_oils">Oils</a>
     <a href="#reviews" data-i18n="nav_reviews">Reviews</a>
     <a href="#contact" data-i18n="nav_contact">Contact</a>
   </div>
@@ -547,7 +775,7 @@
       <span data-i18n="login_google">Continue with Google</span>
     </button>
     <div class="divider"><span data-i18n="login_or">OR</span></div>
-    <input type="password" class="code-input" id="adminCode" placeholder="• • • • • • • •" maxlength="8" data-i18n-ph="login_code_ph" placeholder-fallback="Admin Code">
+    <input type="password" class="code-input" id="adminCode" placeholder="• • • • • • • •" maxlength="8">
     <div class="err" id="loginErr"></div>
     <button class="btn-gold" style="width:100%;justify-content:center;margin-top:14px" onclick="adminLogin()">
       <i class="fa-solid fa-shield-halved"></i> <span data-i18n="login_admin">Admin Access</span>
@@ -568,6 +796,7 @@
     <div class="admin-tabs">
       <button class="admin-tab active" onclick="switchAdminTab('add',this)" data-i18n="admin_tab_add">Add Product</button>
       <button class="admin-tab" onclick="switchAdminTab('manage',this)" data-i18n="admin_tab_manage">Manage</button>
+      <button class="admin-tab" onclick="switchAdminTab('sync',this)" data-i18n="admin_tab_sync">Sync</button>
     </div>
 
     <div id="addTab">
@@ -580,11 +809,11 @@
       </div>
       <div class="field">
         <label data-i18n="admin_name">Product Name</label>
-        <input type="text" id="prodName" data-i18n-ph="admin_name_ph" placeholder-fallback="e.g. 18 inch Sport Rim">
+        <input type="text" id="prodName">
       </div>
       <div class="field">
         <label data-i18n="admin_desc">Description</label>
-        <textarea id="prodDesc" rows="3" data-i18n-ph="admin_desc_ph" placeholder-fallback="Brief description..."></textarea>
+        <textarea id="prodDesc" rows="3"></textarea>
       </div>
       <div class="field">
         <label data-i18n="admin_stock">Stock Status</label>
@@ -602,17 +831,66 @@
       <div id="adminProductsList"></div>
       <div id="adminEmpty" style="text-align:center;color:var(--muted);padding:30px;font-size:13px" data-i18n="admin_no_products">No products added yet.</div>
     </div>
+
+    <div id="syncTab" style="display:none">
+      <div class="sync-box">
+        <div class="sync-status">
+          <span class="sync-dot" id="syncDot"></span>
+          <span id="syncStatusText">Checking...</span>
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>GitHub Username</label>
+          <input type="text" id="ghOwner" placeholder="e.g. makhlouf-tony">
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>Repository Name</label>
+          <input type="text" id="ghRepo" placeholder="e.g. makhlouf-wheels">
+        </div>
+        <div class="field" style="margin-bottom:10px">
+          <label>Branch</label>
+          <input type="text" id="ghBranch" placeholder="main" value="main">
+        </div>
+        <div class="field">
+          <label>GitHub Personal Access Token (PAT)</label>
+          <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
+        </div>
+        <button class="btn-gold" style="width:100%;justify-content:center;margin-top:6px" onclick="saveSyncConfig()">
+          <i class="fa-solid fa-floppy-disk"></i> Save Config
+        </button>
+        <button class="icon-btn" style="width:100%;justify-content:center;margin-top:8px" onclick="pullFromGitHub()">
+          <i class="fa-solid fa-cloud-arrow-down"></i> Pull from GitHub
+        </button>
+        <button class="btn-gold" style="width:100%;justify-content:center;margin-top:8px;background:linear-gradient(135deg,var(--green),#1f9d57);color:#fff" onclick="pushToGitHub()">
+          <i class="fa-solid fa-cloud-arrow-up"></i> Push Changes to GitHub
+        </button>
+      </div>
+      <div class="sync-help">
+        <strong style="color:var(--gold-2)">How sync works:</strong><br>
+        1. Create a public GitHub repo and upload this <code>index.html</code> file.<br>
+        2. Enable GitHub Pages (Settings → Pages).<br>
+        3. Create a Personal Access Token with <code>repo</code> scope at:<br>
+        <code>github.com/settings/tokens</code><br>
+        4. Enter your config above and click <strong>Push</strong>.<br>
+        5. All visitors will see the updated products & reviews on next page load.<br><br>
+        <strong style="color:var(--gold-2)">Current data file:</strong> <code>data.json</code> (auto-created in your repo on first push).
+      </div>
+    </div>
   </div>
 </aside>
 
 <div class="toast" id="toast"></div>
 
 <script>
+/* ====== GitHub Sync Config ====== */
+const SYNC_FILE = 'data.json';
+let syncConfig = JSON.parse(localStorage.getItem('mh_sync_config') || '{}');
+if(!syncConfig.branch) syncConfig.branch = 'main';
+
 /* ====== i18n ====== */
 const I18N = {
   en:{
     logo_sub:"makhlouf.h tony FOR WHEELS",
-    nav_products:"Products", nav_reviews:"Reviews", nav_contact:"Contact", nav_services:"Services",
+    nav_products:"Products", nav_reviews:"Reviews", nav_contact:"Contact", nav_services:"Services", nav_oils:"Oils",
     login:"Login",
     hero_tag:"PREMIUM WHEELS & SERVICE",
     hero_title:'makhlouf.h tony <span>FOR WHEELS</span>',
@@ -625,6 +903,14 @@ const I18N = {
     srv3_title:"Welding", srv3_desc:"Expert welding services for wheels and rims. Durable, precise and reliable craftsmanship.",
     prod_eyebrow:"OUR COLLECTION", prod_title:"Wheels In Stock", prod_sub:"Browse our available wheels — updated live by our team",
     prod_empty:"Products will appear here soon. Stay tuned!",
+    wheels_banner_title:"SAILUN TYRES — All Models Available",
+    wheels_banner_sub:"We have all Sailun tires for all cars and models",
+    oils_eyebrow:"ENGINE PROTECTION", oils_title:"Our Oils", oils_sub:"Premium oils for maximum engine performance and protection",
+    oils_banner_title:"We Use Only These Oils",
+    oils_banner_sub:"CHAMP · ROVEL · SAILUN — Premium quality protection",
+    oil_f1_title:"Maximum Performance", oil_f1_desc:"Engineered to deliver peak engine performance under all driving conditions.",
+    oil_f2_title:"Premium Protection", oil_f2_desc:"Advanced formula protects your engine against wear, heat and deposits.",
+    oil_f3_title:"All Engine Types", oil_f3_desc:"Compatible with gasoline and diesel engines — new and used oils available.",
     rev_eyebrow:"CUSTOMER FEEDBACK", rev_title:"Reviews", rev_sub:"See what our customers say about us",
     rev_form_title:"Add Your Review", rev_form_sub:"Share your experience with us",
     rev_name:"Your Name", rev_rate:"Rating", rev_text:"Your Review", rev_submit:"Submit Review",
@@ -633,24 +919,27 @@ const I18N = {
     deliv_title:"Free Delivery", deliv_desc:"Free delivery available for Baabda and its surroundings.",
     footer_tag:"makhlouf.h tony FOR WHEELS — Quality You Can Trust",
     login_title:"Sign In", login_sub:"Choose your preferred login method", login_google:"Continue with Google",
-    login_or:"OR", login_code_ph:"Admin Code", login_admin:"Admin Access", cancel:"Cancel",
-    admin_title:"Admin Panel", admin_tab_add:"Add Product", admin_tab_manage:"Manage",
+    login_or:"OR", login_admin:"Admin Access", cancel:"Cancel",
+    admin_title:"Admin Panel", admin_tab_add:"Add Product", admin_tab_manage:"Manage", admin_tab_sync:"Sync",
     admin_photo:"Product Photo", admin_click:"Click to upload",
-    admin_name:"Product Name", admin_name_ph:"e.g. 18 inch Sport Rim",
-    admin_desc:"Description", admin_desc_ph:"Brief description...",
+    admin_name:"Product Name", admin_desc:"Description",
     admin_stock:"Stock Status", admin_stock_in:"In Stock", admin_stock_out:"Out of Stock",
     admin_add_btn:"Add Product", admin_no_products:"No products added yet.",
     in_stock:"In Stock", out_stock:"Out of Stock",
     t_add:"Product added successfully!", t_rem:"Product removed", t_rev:"Review submitted! Thank you",
     t_google:"Signed in with Google (demo)", t_wrong:"Wrong admin code", t_need_photo:"Please select a photo",
-    t_need_name:"Please enter a product name", t_need_rev:"Please fill all fields"
+    t_need_name:"Please enter a product name", t_need_rev:"Please fill all fields",
+    t_sync_saved:"Sync config saved!", t_sync_push_ok:"Pushed to GitHub! All visitors will see updates.",
+    t_sync_push_err:"Push failed. Check token & repo.", t_sync_pull_ok:"Pulled latest data from GitHub.",
+    t_sync_pull_err:"Could not pull from GitHub.", t_sync_no_config:"Please set GitHub config first.",
+    t_sync_offline:"Offline mode (localStorage only)"
   },
   ar:{
-    logo_sub:"توني مخلوف للجنوط",
-    nav_products:"المنتجات", nav_reviews:"التقييمات", nav_contact:"تواصل", nav_services:"خدماتنا",
+    logo_sub:"طوني مخلوف للجنوط",
+    nav_products:"المنتجات", nav_reviews:"التقييمات", nav_contact:"تواصل", nav_services:"خدماتنا", nav_oils:"الزيوت",
     login:"تسجيل الدخول",
     hero_tag:"جنوط وخدمات احترافية",
-    hero_title:'توني مخلوف <span>للجنوط</span>',
+    hero_title:'طوني مخلوف <span>للجنوط</span>',
     hero_desc:"وجهتك الموثوقة لزيوت السيارات الجديدة والمستعملة، الجنوط عالية الجودة، إصلاح الجنوط الاحترافي وخدمات اللحام. جودة يمكنك الاعتماد عليها، تُقدّم بخبرة.",
     cta_shop:"تصفّح الجنوط", cta_services:"خدماتنا",
     st_years:"سنوات خبرة", st_clients:"عميل سعيد", st_quality:"ضمان الجودة",
@@ -660,25 +949,36 @@ const I18N = {
     srv3_title:"اللحام", srv3_desc:"خدمات لحام احترافية للجنوط. صناعة متينة ودقيقة وموثوقة.",
     prod_eyebrow:"مجموعتنا", prod_title:"الجنوط المتوفرة", prod_sub:"تصفّح الجنوط المتوفرة — يتم التحديث مباشرة من فريقنا",
     prod_empty:"ستظهر المنتجات قريباً. ترقّبونا!",
+    wheels_banner_title:"إطارات سايلون — جميع الموديلات متوفرة",
+    wheels_banner_sub:"نملك جميع إطارات سايلون لجميع السيارات والموديلات",
+    oils_eyebrow:"حماية المحرك", oils_title:"زيوتنا", oils_sub:"زيوت فاخرة لأقصى أداء وحماية للمحرك",
+    oils_banner_title:"نستخدم فقط هذه الزيوت",
+    oils_banner_sub:"شامب · روفل · سايلون — حماية بجودة عالية",
+    oil_f1_title:"أقصى أداء", oil_f1_desc:"مصممة لتقديم أعلى أداء للمحرك في جميع ظروف القيادة.",
+    oil_f2_title:"حماية فاخرة", oil_f2_desc:"تركيبة متقدمة تحمي محركك من التآكل والحرارة والترسبات.",
+    oil_f3_title:"جميع أنواع المحركات", oil_f3_desc:"متوافقة مع محركات البنزين والديزل — زيوت جديدة ومستعملة متوفرة.",
     rev_eyebrow:"آراء العملاء", rev_title:"التقييمات", rev_sub:"شاهد ماذا يقول عملاؤنا عنّا",
     rev_form_title:"أضف تقييمك", rev_form_sub:"شاركنا تجربتك معنا",
     rev_name:"اسمك", rev_rate:"التقييم", rev_text:"رأيك", rev_submit:"إرسال التقييم",
     con_eyebrow:"تواصل معنا", con_title:"التواصل والموقع", con_sub:"زرنا أو اتصل بنا — هنا لخدمتك",
     con_phone1_lbl:"هاتف 1", con_phone2_lbl:"هاتف 2", con_loc_lbl:"الموقع", con_loc_val:"بعبدا، لبنان",
     deliv_title:"توصيل مجاني", deliv_desc:"توصيل مجاني لبعبدا والمناطق المحيطة بها.",
-    footer_tag:"توني مخلوف للجنوط — جودة يمكنك الوثوق بها",
+    footer_tag:"طوني مخلوف للجنوط — جودة يمكنك الوثوق بها",
     login_title:"تسجيل الدخول", login_sub:"اختر طريقة الدخول المفضّلة لديك", login_google:"المتابعة عبر Google",
-    login_or:"أو", login_code_ph:"رمز المشرف", login_admin:"دخول المشرف", cancel:"إلغاء",
-    admin_title:"لوحة المشرف", admin_tab_add:"إضافة منتج", admin_tab_manage:"إدارة",
+    login_or:"أو", login_admin:"دخول المشرف", cancel:"إلغاء",
+    admin_title:"لوحة المشرف", admin_tab_add:"إضافة منتج", admin_tab_manage:"إدارة", admin_tab_sync:"مزامنة",
     admin_photo:"صورة المنتج", admin_click:"اضغط للرفع",
-    admin_name:"اسم المنتج", admin_name_ph:"مثال: جنط رياضي 18 إنش",
-    admin_desc:"الوصف", admin_desc_ph:"وصف مختصر...",
+    admin_name:"اسم المنتج", admin_desc:"الوصف",
     admin_stock:"حالة التوفّر", admin_stock_in:"متوفر", admin_stock_out:"غير متوفر",
     admin_add_btn:"إضافة المنتج", admin_no_products:"لم تتم إضافة أي منتج بعد.",
     in_stock:"متوفر", out_stock:"غير متوفر",
     t_add:"تمت إضافة المنتج بنجاح!", t_rem:"تم حذف المنتج", t_rev:"تم إرسال تقييمك! شكراً لك",
     t_google:"تم تسجيل الدخول عبر Google (تجريبي)", t_wrong:"رمز المشرف غير صحيح", t_need_photo:"يرجى اختيار صورة",
-    t_need_name:"يرجى إدخال اسم المنتج", t_need_rev:"يرجى ملء جميع الحقول"
+    t_need_name:"يرجى إدخال اسم المنتج", t_need_rev:"يرجى ملء جميع الحقول",
+    t_sync_saved:"تم حفظ إعدادات المزامنة!", t_sync_push_ok:"تم الرفع إلى GitHub! سيشاهد جميع الزوار التحديثات.",
+    t_sync_push_err:"فشل الرفع. تحقق من الرمز والمستودع.", t_sync_pull_ok:"تم سحب أحدث البيانات من GitHub.",
+    t_sync_pull_err:"تعذّر السحب من GitHub.", t_sync_no_config:"يرجى ضبط إعدادات GitHub أولاً.",
+    t_sync_offline:"وضع غير متصل (localStorage فقط)"
   }
 };
 
@@ -691,10 +991,6 @@ function applyLang(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const k = el.getAttribute('data-i18n');
     if(dict[k]) el.innerHTML = dict[k];
-  });
-  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
-    const k = el.getAttribute('data-i18n-ph');
-    if(dict[k]) el.placeholder = dict[k];
   });
   document.getElementById('langLabel').textContent = currentLang === 'ar' ? 'English' : 'العربية';
   renderProducts();
@@ -711,12 +1007,20 @@ function toggleLang(){
 let products = JSON.parse(localStorage.getItem('mh_products') || '[]');
 let reviews = JSON.parse(localStorage.getItem('mh_reviews') || '[]');
 
-// seed reviews if empty
 if(reviews.length === 0){
   reviews = [
     {name:"Khalil A.", stars:5, text:"Best wheel shop in Baabda! Fixed my rim perfectly and the price was fair.", date:"2024-09-12"},
-    {name:"Sara M.", stars:5, text:"توني محترف بامتياز. غيّر جنوط سيارتي وصاروا كالجدد. أنصح فيه بشدة!", date:"2024-08-30"},
-    {name:"Joseph T.", stars:4, text:"Quick service and good quality oils. Will come back again.", date:"2024-07-21"}
+    {name:"Sara M.", stars:5, text:"طوني محترف بامتياز. غيّر جنوط سيارتي وصاروا كالجدد. أنصح فيه بشدة!", date:"2024-08-30"},
+    {name:"Joseph T.", stars:4, text:"Quick service and good quality oils. Will come back again.", date:"2024-07-21"},
+    {name:"Nadia H.", stars:5, text:"خدمة ممتازة وأسعار منافسة. زيت المحرك أصلي 100% وأنصح الجميع بالتعامل معه.", date:"2024-09-05"},
+    {name:"Toni R.", stars:5, text:"Welding work was top-notch. My rim was cracked and now it's solid. Highly recommend!", date:"2024-08-18"},
+    {name:"Marie J.", stars:4, text:"مكان منظّم وأدوات حديثة. توني يعرف شغله تماماً. التوصيل لبعبدا كان سريعاً.", date:"2024-06-29"},
+    {name:"George K.", stars:5, text:"Bought Sailun tires for my SUV — amazing grip and great price. Thank you makhlouf.h tony!", date:"2024-09-22"},
+    {name:"Rania S.", stars:5, text:"أفضل مكان لإصلاح الجنوط في المنطقة. شغل نظيف وأخلاق عالية.", date:"2024-08-11"},
+    {name:"Fadi L.", stars:4, text:"Good selection of used wheels. Found exactly what I needed for my BMW. Honest guy.", date:"2024-07-03"},
+    {name:"Lea M.", stars:5, text:"تجربة رائعة من البداية للنهاية. نصحني بأفضل زيت لمحركي وصار يمشي أنعم بكثير.", date:"2024-09-15"},
+    {name:"Charbel A.", stars:5, text:"Professional and reliable. Tony knows his craft inside out. My go-to guy for wheels.", date:"2024-08-27"},
+    {name:"Joelle H.", stars:5, text:"خدمة العملاء ممتازة جداً. جاوب على كل أسئلتي واقترح الحل الأفضل. شكراً طوني!", date:"2024-09-30"}
   ];
   localStorage.setItem('mh_reviews', JSON.stringify(reviews));
 }
@@ -734,7 +1038,7 @@ function toggleMobileMenu(){
 }
 
 /* ====== Login / Admin ====== */
-const ADMIN_CODE = "71688048"; // kept internal, never displayed
+const ADMIN_CODE = "71688048";
 
 function openLogin(){
   document.getElementById('loginModal').classList.add('active');
@@ -745,7 +1049,6 @@ function closeLogin(){
   document.getElementById('loginModal').classList.remove('active');
 }
 function googleLogin(){
-  // Demo Google login — in production would integrate Google Identity Services
   showToast(I18N[currentLang].t_google);
   closeLogin();
 }
@@ -763,6 +1066,8 @@ function openAdmin(){
   document.getElementById('adminPanel').classList.add('active');
   switchAdminTab('add', document.querySelector('.admin-tab'));
   renderAdminProducts();
+  loadSyncConfigUI();
+  updateSyncStatus();
 }
 function closeAdmin(){
   document.getElementById('adminPanel').classList.remove('active');
@@ -772,6 +1077,7 @@ function switchAdminTab(tab, btn){
   btn.classList.add('active');
   document.getElementById('addTab').style.display = tab === 'add' ? 'block' : 'none';
   document.getElementById('manageTab').style.display = tab === 'manage' ? 'block' : 'none';
+  document.getElementById('syncTab').style.display = tab === 'sync' ? 'block' : 'none';
 }
 
 /* ====== Products ====== */
@@ -797,7 +1103,6 @@ function addProduct(){
   saveProducts();
   renderProducts();
   renderAdminProducts();
-  // reset
   document.getElementById('prodName').value = '';
   document.getElementById('prodDesc').value = '';
   document.getElementById('prodPhoto').value = '';
@@ -932,6 +1237,104 @@ function renderReviews(){
   `).join('');
 }
 
+/* ====== GitHub Sync ====== */
+function loadSyncConfigUI(){
+  document.getElementById('ghOwner').value = syncConfig.owner || '';
+  document.getElementById('ghRepo').value = syncConfig.repo || '';
+  document.getElementById('ghBranch').value = syncConfig.branch || 'main';
+  document.getElementById('ghToken').value = syncConfig.token || '';
+}
+
+function saveSyncConfig(){
+  syncConfig.owner = document.getElementById('ghOwner').value.trim();
+  syncConfig.repo = document.getElementById('ghRepo').value.trim();
+  syncConfig.branch = document.getElementById('ghBranch').value.trim() || 'main';
+  syncConfig.token = document.getElementById('ghToken').value.trim();
+  localStorage.setItem('mh_sync_config', JSON.stringify(syncConfig));
+  updateSyncStatus();
+  showToast(I18N[currentLang].t_sync_saved);
+}
+
+function updateSyncStatus(){
+  const dot = document.getElementById('syncDot');
+  const txt = document.getElementById('syncStatusText');
+  if(!dot || !txt) return;
+  if(syncConfig.owner && syncConfig.repo && syncConfig.token){
+    dot.className = 'sync-dot online';
+    txt.textContent = 'Connected to: ' + syncConfig.owner + '/' + syncConfig.repo;
+  } else {
+    dot.className = 'sync-dot offline';
+    txt.textContent = I18N[currentLang].t_sync_offline;
+  }
+}
+
+async function pullFromGitHub(){
+  if(!syncConfig.owner || !syncConfig.repo){
+    showToast(I18N[currentLang].t_sync_no_config, true);
+    return;
+  }
+  try{
+    const url = `https://raw.githubusercontent.com/${syncConfig.owner}/${syncConfig.repo}/${syncConfig.branch || 'main'}/${SYNC_FILE}?t=${Date.now()}`;
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('Not found');
+    const data = await res.json();
+    if(data.products) { products = data.products; saveProducts(); renderProducts(); renderAdminProducts(); }
+    if(data.reviews) { reviews = data.reviews; saveReviews(); renderReviews(); }
+    showToast(I18N[currentLang].t_sync_pull_ok);
+  }catch(e){
+    showToast(I18N[currentLang].t_sync_pull_err, true);
+  }
+}
+
+async function pushToGitHub(){
+  if(!syncConfig.owner || !syncConfig.repo || !syncConfig.token){
+    showToast(I18N[currentLang].t_sync_no_config, true);
+    return;
+  }
+  try{
+    const apiBase = `https://api.github.com/repos/${syncConfig.owner}/${syncConfig.repo}/contents/${SYNC_FILE}`;
+    let sha = null;
+    const getRes = await fetch(apiBase, {
+      headers: { 'Authorization': `token ${syncConfig.token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if(getRes.ok){
+      const getData = await getRes.json();
+      sha = getData.sha;
+    }
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify({ products, reviews }, null, 2))));
+    const putRes = await fetch(apiBase, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${syncConfig.token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Update products & reviews via admin panel',
+        content: content,
+        branch: syncConfig.branch || 'main',
+        sha: sha
+      })
+    });
+    if(!putRes.ok) throw new Error('Push failed');
+    showToast(I18N[currentLang].t_sync_push_ok);
+  }catch(e){
+    showToast(I18N[currentLang].t_sync_push_err, true);
+  }
+}
+
+/* ====== Auto-pull on page load ====== */
+async function autoSyncOnLoad(){
+  try{
+    const saved = JSON.parse(localStorage.getItem('mh_sync_config') || '{}');
+    if(!saved.owner || !saved.repo) return;
+    const url = `https://raw.githubusercontent.com/${saved.owner}/${saved.repo}/${saved.branch || 'main'}/${SYNC_FILE}?t=${Date.now()}`;
+    const res = await fetch(url);
+    if(!res.ok) return;
+    const data = await res.json();
+    let changed = false;
+    if(data.products){ products = data.products; localStorage.setItem('mh_products', JSON.stringify(products)); changed = true; }
+    if(data.reviews){ reviews = data.reviews; localStorage.setItem('mh_reviews', JSON.stringify(reviews)); changed = true; }
+    if(changed){ renderProducts(); renderReviews(); }
+  }catch(e){ /* silent fail - use local data */ }
+}
+
 /* ====== Utils ====== */
 function escapeHtml(s){
   if(!s) return '';
@@ -947,13 +1350,13 @@ function showToast(msg, isError){
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Close modal on outside click
 document.getElementById('loginModal').addEventListener('click', e => {
   if(e.target.id === 'loginModal') closeLogin();
 });
 
 // Init
 applyLang();
+autoSyncOnLoad();
 </script>
 </body>
 </html>
